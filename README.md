@@ -1,3 +1,11 @@
+# NETFLIX GPT
+- Vite
+- Tailwind Configuration
+- Header
+- Login Form
+- Sign up Form
+
+
 # Features
 
 - Login/Sign UP
