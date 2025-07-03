@@ -1,17 +1,38 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { signOut } from "firebase/auth";
-import { useSelector } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
+import { APP_LOGO_URL } from "../constants";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userInfo = useSelector((store) => store.user);
   console.log("userInfo: ", userInfo);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User from Header: ", user);
+        const { uid, displayName, email, photoURL } = user;
+        dispatch(addUser({ uid, email, displayName, photoURL }));
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+    // unsubscribe from the auth state listener when the component unmounts
+    // to prevent memory leaks and unnecessary updates
+    return () => unsubscribe();
+  }, []);
+
   const onSignOutClickHandler = () => {
     signOut(auth)
       .then(() => {
         console.log("Signed Out");
-        navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -20,20 +41,16 @@ const Header = () => {
   };
   return (
     <div className="absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-full flex justify-between">
-      <img
-        className="w-44"
-        src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7bbc-b635-c4131030e85f/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt="Netflix Logo"
-      />
+      <img className="w-44" src={APP_LOGO_URL} alt="Movies Logo" />
       {userInfo && (
-        <div className="flex">
+        <div className="flex items-center mb-20">
           <img
-            className="w-10 h-10 rounded my-2 ml-8"
+            className="w-20 h-20 rounded ml-8"
             src={userInfo?.photoURL}
-            alt="Netflix Avatar"
+            alt="User Avatar"
           />
           <button
-            className="mb-6 p-4 cursor-pointer font-bold"
+            className="p-4 cursor-pointer font-bold"
             onClick={onSignOutClickHandler}
           >
             Sign Out

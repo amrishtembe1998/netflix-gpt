@@ -3,16 +3,15 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { useNavigate } from "react-router";
 import { useRef, useState } from "react";
 import { validateForm } from "../utils/validate";
 import { auth } from "../utils/firebase";
 import Header from "./Header";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { APP_BACKGROUND_IMAGE_URL, USER_AVATAR_URL } from "../constants";
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -25,7 +24,7 @@ const Login = () => {
   };
 
   const handleButtonClick = () => {
-    const message = validateForm(email.current.value, password.current.value, m);
+    const message = validateForm(email.current.value, password.current.value);
     setErrorMessage(message);
     if (message) return;
     if (!isSignInForm) {
@@ -40,13 +39,12 @@ const Login = () => {
           console.log("User from Sign Up", user);
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/59555640?v=4",
+            photoURL: USER_AVATAR_URL,
           })
             .then(() => {
               const { uid, displayName, email, photoURL } = auth.currentUser;
               console.log("Profile Updated with ", name.current.value);
               dispatch(addUser({ uid, displayName, email, photoURL }));
-              navigate("/browse");
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -67,7 +65,6 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log("User signed In: ", user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -87,8 +84,8 @@ const Login = () => {
       <div>
         <img
           className="absolute"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/75b0ed49-75ab-4a63-bd45-37bc2c95cb73/web/IN-en-20250623-TRIFECTA-perspective_ae5833b7-6ce5-4e88-853e-014f38c506f1_large.jpg"
-          alt="Netflix Background Image"
+          src={APP_BACKGROUND_IMAGE_URL}
+          alt="Movies Background Image"
         ></img>
       </div>
       <form
@@ -129,7 +126,7 @@ const Login = () => {
         </button>
         <p className="py-4 w-6/12 cursor-pointer" onClick={toggleSignInForm}>
           {isSignInForm
-            ? "New to Netflix? Sign Up"
+            ? "New to MoviesGPT? Sign Up"
             : "Already Registered? Sign In"}
         </p>
       </form>
