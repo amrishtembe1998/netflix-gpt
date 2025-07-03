@@ -18,6 +18,8 @@
 - BugFix: Redirect user based on login state
 - unsubscribe to the onAuthStateChanged callback
 - Add hardcoded values to constant files
+- Create TMDB account, register TMDB API, create an app, get access token
+- Get movie data from TMDB API
 
 # Features
 

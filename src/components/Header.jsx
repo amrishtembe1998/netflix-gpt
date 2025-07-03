@@ -10,12 +10,10 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((store) => store.user);
-  console.log("userInfo: ", userInfo);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("User from Header: ", user);
         const { uid, displayName, email, photoURL } = user;
         dispatch(addUser({ uid, email, displayName, photoURL }));
         navigate("/browse");
@@ -31,11 +29,7 @@ const Header = () => {
 
   const onSignOutClickHandler = () => {
     signOut(auth)
-      .then(() => {
-        console.log("Signed Out");
-      })
       .catch((error) => {
-        console.log(error);
         navigate("/error");
       });
   };

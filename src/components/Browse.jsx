@@ -1,8 +1,11 @@
-import React from "react";
+import { useSelector } from "react-redux";
 import Header from "./Header";
+import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 
 const Browse = () => {
-  // const user = useSelector((state) => state.)
+  useNowPlayingMovies();
+  const movies = useSelector((store) => store.movies.nowPlayingMovies);
+  console.log("Now Playing Movies: ", movies);
   return (
     <div>
       <Header />
