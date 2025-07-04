@@ -8,8 +8,6 @@ export const TMDB_API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MWIxMmVkNzM1ZDU4MDhhZWUzMDgxMTEzODBiNzRmZiIsIm5iZiI6MTc1MTU2MTM2Ni4yMDk5OTk4LCJzdWIiOiI2ODY2YjQ5NjJkNTRiODY1YzNkYTQ2OTciLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.YLZu1eBKpZnsgySKOTWzrQgoMwBeQxa73L6BBdF6YTo",
+    Authorization: import.meta.env.VITE_TMDB_API_TOKEN,
   },
 };
-

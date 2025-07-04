@@ -35,7 +35,7 @@ const Header = () => {
   };
   return (
     <div className="absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-full flex justify-between">
-      <img className="w-44" src={APP_LOGO_URL} alt="Movies Logo" />
+      <img className="w-32" src={APP_LOGO_URL} alt="Movies Logo" />
       {userInfo && (
         <div className="flex items-center mb-20">
           <img
@@ -44,7 +44,7 @@ const Header = () => {
             alt="User Avatar"
           />
           <button
-            className="p-4 cursor-pointer font-bold"
+            className="p-4 cursor-pointer font-bold text-white"
             onClick={onSignOutClickHandler}
           >
             Sign Out
