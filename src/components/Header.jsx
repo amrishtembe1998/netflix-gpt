@@ -4,12 +4,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
-import { APP_LOGO_URL } from "../constants";
+import { APP_LOGO_URL, SUPPORTED_LANGUAGES } from "../constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((store) => store.user);
+  const gptSearchView = useSelector((store) => store.gpt.showGptSearch);
+
+  const handleGptSearchClick = () => {
+    dispatch(toggleGptSearchView());
+  };
+  const handleLanguageChange = (event) => {
+    const selectedLanguage = event.target.value;
+    dispatch(changeLanguage(selectedLanguage));
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -28,18 +39,35 @@ const Header = () => {
   }, []);
 
   const onSignOutClickHandler = () => {
-    signOut(auth)
-      .catch((error) => {
-        navigate("/error");
-      });
+    signOut(auth).catch((error) => {
+      navigate("/error");
+    });
   };
   return (
     <div className="absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-full flex justify-between">
       <img className="w-32" src={APP_LOGO_URL} alt="Movies Logo" />
       {userInfo && (
         <div className="flex items-center mb-20">
+          {gptSearchView && (
+            <select
+              className="px-6 m-4 py-2 bg-gray-800 text-white rounded-lg"
+              onChange={handleLanguageChange}
+            >
+              {SUPPORTED_LANGUAGES.map((language) => (
+                <option value={language.identifier} key={language.identifier}>
+                  {language.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <button
+            className="text-white bg-purple-600/80 p-3 rounded-xl cursor-pointer hover:opacity-50 ml-4"
+            onClick={handleGptSearchClick}
+          >
+            {gptSearchView ? "Homepage" : "GPT Search"}
+          </button>
           <img
-            className="w-20 h-20 rounded ml-8"
+            className="w-20 h-20 rounded ml-4"
             src={userInfo?.photoURL}
             alt="User Avatar"
           />

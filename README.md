@@ -32,6 +32,9 @@
 - Render movie list horizontally scrollable
 - Tailwind classes for overlapping movie list on playing video
 - Created generic custom hook to fetch movie list and store in redux
+- GPT Search Page
+- GPT Search Bar
+- Multi Language Feature
 
 # Features
 

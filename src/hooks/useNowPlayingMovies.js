@@ -16,7 +16,6 @@ const useMovies = (genre) => {
       TMDB_API_OPTIONS
     );
     const json = await data.json();
-    console.log("Movies: ",genre, json);
     if (genre === "now_playing") {
       dispatch(addNowPlayingMovie(json.results));
     } else if (genre === "top_rated") {
