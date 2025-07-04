@@ -7,7 +7,7 @@ const MainContainer = () => {
 
   if (!movies) return; // Handle the case where movies are not available
 
-  const mainMovie = movies[0];
+  const mainMovie = movies[2];
   return (
     <div>
       <VideoTitle

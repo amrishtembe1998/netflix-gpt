@@ -27,7 +27,11 @@
 - Update store with trailer video data
 - Embedde Youtube video and make it autoplay and mute
 - Tailwind classes to fix alignment & absolutes
-
+- Build secondary component
+- TMDB Image CDN URL
+- Render movie list horizontally scrollable
+- Tailwind classes for overlapping movie list on playing video
+- Created generic custom hook to fetch movie list and store in redux
 
 # Features
 
