@@ -40,9 +40,9 @@ const GptSearchBar = () => {
 
   const selectedLanguage = useSelector((state) => state.config.lang);
   return (
-    <div className="pt-[15%] flex justify-center">
+    <div className="pt-[35%] flex justify-center md:pt-[10%]">
       <form
-        className="w-1/2 bg-black grid grid-cols-12"
+        className="w-full md:w-1/2 bg-black grid grid-cols-12"
         onSubmit={(e) => e.preventDefault()}
       >
         <input

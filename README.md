@@ -35,8 +35,13 @@
 - GPT Search Page
 - GPT Search Bar
 - Multi Language Feature
+- Gemini API creation, API integration
 - GPT Search functionality
-- Reuse Movie List to show GPT recommendations
+- Fetch movie details from TMDB using GPT response
+- Memoization
+- Reused Movie List to show GPT recommendations
+- Added .env file
+- Responsiveness
 
 # TODO
 - Shimmer UI
