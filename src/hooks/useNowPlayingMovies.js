@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { TMDB_API_OPTIONS } from "../constants";
 import {
@@ -10,6 +10,9 @@ import {
 
 const useMovies = (genre) => {
   const dispatch = useDispatch();
+  const nowPlayingMovies = useSelector((store) => store.movies.nowPlayingMovies);
+
+
   const getMovies = async () => {
     const data = await fetch(
       `https://api.themoviedb.org/3/movie/${genre}?page=1`,
@@ -27,7 +30,7 @@ const useMovies = (genre) => {
     }
   };
   useEffect(() => {
-    getMovies();
+    !nowPlayingMovies && getMovies();
   }, []);
 };
 

@@ -35,6 +35,12 @@
 - GPT Search Page
 - GPT Search Bar
 - Multi Language Feature
+- GPT Search functionality
+- Reuse Movie List to show GPT recommendations
+
+# TODO
+- Shimmer UI
+- Error page
 
 # Features
 

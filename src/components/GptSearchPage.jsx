@@ -8,7 +8,7 @@ const GptSearchPage = () => {
       <img
         src={APP_BACKGROUND_IMAGE_URL}
         alt="logo"
-        className="absolute -z-10 h-screen w-full object-cover"
+        className="fixed -z-10 h-screen w-full object-cover"
       />
       <div className="">
         <GptSearchBar />
